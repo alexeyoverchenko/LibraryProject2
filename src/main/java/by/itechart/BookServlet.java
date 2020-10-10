@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class BookServlet extends HttpServlet {
-    LibraryFormation libraryFormation = new LibraryFormation();
+    private static LibraryFormation libraryFormation = new LibraryFormation();
 
     @Override
     public void init(ServletConfig config) throws ServletException {

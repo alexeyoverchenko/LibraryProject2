@@ -8,7 +8,8 @@
 <section>
     <h3>Library</h3>
 
-<%--    <jsp:useBean id="library" scope="request" type="java.util.List"/>--%>
+
+    <jsp:useBean id="library" scope="request" type="java.util.List"/>
     <c:forEach var="book" items="${library}"> ${book.name} </c:forEach>
 
 
