@@ -2,24 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Books</title>
+    <title>Library</title>
 </head>
 <body>
 <section>
     <h3>Library</h3>
 
-    <c:forEach var="bookFromLib" items="${library}"> ${bookFromLib.author} | ${bookFromLib.name} </c:forEach>
+    <c:forEach var="book" items="${library}">
+        <div><c:out value="${book.author} | ${book.name}"/></div>
+        </c:forEach>
 
-
-    <form method="post" action="book?action=submit">
+    <form method="post" action="book">
         <dl>
-            <dd><input type="number" name="id" value="${book.id}" placeholder="id" /></dd>
+            <dd><input type="number" name="id" placeholder="id" /></dd>
         </dl>
         <dl>
-            <dd><input type="text" name="author" value="${book.author}" placeholder="автор" /></dd>
+            <dd><input type="text" name="author" placeholder="автор" /></dd>
         </dl>
         <dl>
-            <dd><input type="text" name="name" value="${book.name}" placeholder="название" /></dd>
+            <dd><input type="text" name="name" placeholder="название" /></dd>
         </dl>
         <button type="submit">Save</button>
     </form>

@@ -1,36 +1,28 @@
 package by.itechart;
 
-import javax.servlet.ServletException;
+import lombok.SneakyThrows;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class Servlet extends HttpServlet {
 
+    @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-//        request.setAttribute("library", LibraryDB.getLibraryFromDB());
-            request.getRequestDispatcher("/book.jsp").forward(request, response);
+        request.setAttribute("library", LibraryDB.dataRead());
+        request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 
+    @SneakyThrows
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
+        LibraryFormation.saveNewBook(Integer.parseInt(request.getParameter("id")), request.getParameter("author"),request.getParameter("name"));
 
-        if ("submit".equals(action)) {
-            try {
-                LibraryFormation.saveNewBook(Integer.parseInt(request.getParameter("id")), request.getParameter("author"),request.getParameter("name"));
-            } catch (SQLException throwable) {
-                throwable.printStackTrace();
-            }
-        }
-
-        request.setAttribute("library", LibraryDB.getLibraryFromDB());
+        request.setAttribute("library", LibraryDB.dataRead());
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 }
