@@ -1,4 +1,4 @@
-package by.iTechArt;
+package by.itechart;
 
 public class Jdbc {
 

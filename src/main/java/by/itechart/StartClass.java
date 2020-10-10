@@ -1,11 +1,10 @@
-package by.iTechArt;
+package by.itechart;
 
 import javax.servlet.http.HttpServlet;
 
 public class StartClass extends HttpServlet {
 
     public static void main(String[] args) {
-
 
     }
 
