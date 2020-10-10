@@ -1,25 +1,18 @@
 package by.itechart;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
-public class BookServlet extends HttpServlet {
-    private static LibraryFormation libraryFormation = new LibraryFormation();
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        libraryFormation.saveNewBook(1, "Так говорил заратустра", "Ницше");
-    }
+public class Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("library", libraryFormation.getLibrary());
+//        request.setAttribute("library", LibraryDB.getLibraryFromDB());
             request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 
@@ -30,10 +23,14 @@ public class BookServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("submit".equals(action)) {
-            libraryFormation.saveNewBook(Integer.parseInt(request.getParameter("id")), request.getParameter("name"),request.getParameter("author"));
+            try {
+                LibraryFormation.saveNewBook(Integer.parseInt(request.getParameter("id")), request.getParameter("author"),request.getParameter("name"));
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+            }
         }
 
-        request.setAttribute("library", libraryFormation.getLibrary());
+        request.setAttribute("library", LibraryDB.getLibraryFromDB());
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 }

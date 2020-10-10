@@ -5,20 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LibraryFormation {
-    private static List<Book> library = new LinkedList<Book>();
+    public static List<Book> library = new LinkedList<>();
 
-    public List<Book> getLibrary() {
-        return library;
-    }
-
-
-    public void saveNewBook(int id, String name, String author){
+    public static void saveNewBook(int id, String name, String author) throws SQLException {
         Book book = new Book();
         book.setId(id);
         book.setName(name);
         book.setAuthor(author);
         library.add(book);
-//        StartClass.libraryDB.writeToData(library);
+        LibraryDB.dataWork(library);
 
     }
 

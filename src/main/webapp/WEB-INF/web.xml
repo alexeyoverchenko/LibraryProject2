@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>bookServlet</servlet-name>
-        <servlet-class>by.itechart.BookServlet</servlet-class>
+        <servlet-class>by.itechart.Servlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>

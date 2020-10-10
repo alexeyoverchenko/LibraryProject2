@@ -1,29 +1,48 @@
 package by.itechart;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
 
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LibraryDB {
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DATABASE_URL = "jdbc:mysql://localhost/mydb";
+    static final String USER = "alex";
+    static final String PASSWORD = "Maya666";
+    private static List<Book> libraryFromDB = new LinkedList<>();
 
-    public void dataWork() throws ClassNotFoundException, SQLException {
-
-        MongoClient mongo = new MongoClient("localhost", 27017);
-        MongoCredential credential = MongoCredential.createCredential("alex", "myDB", "password".toCharArray());
-        MongoDatabase database = mongo.getDatabase("myDB");
-        database.createCollection("library");
+    public static List<Book> getLibraryFromDB() {
+        return libraryFromDB;
     }
 
-    public void writeToData(List<Book> list) {
-        for (Book book : list) {
-            String s = "{ id:" + book.getId() + "author:" + book.getAuthor() + "name:" + book.getName() + "}";
-            DBObject dbObject = (DBObject) JSON.parse(s);
+    public static void dataWork(List<Book> list) throws SQLException {
 
+        Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        Statement statement = connection.createStatement();
+
+            for (Book book : list) {
+                int id = book.getId();
+                String author = book.getAuthor();
+                String name = book.getName();
+                statement.executeUpdate("INSERT INTO library VALUE (" + id + ", " + author + ", " + name);
         }
-    }
+            LibraryFormation.library.clear();
 
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM library");
+
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String author = resultSet.getString("author");
+                    String name = resultSet.getString("name");
+
+                    Book book = new Book();
+                    book.setId(id);
+                    book.setName(name);
+                    book.setAuthor(author);
+                    libraryFromDB.add(book);
+                }
+                resultSet.close();
+                statement.close();
+                connection.close();
+    }
 }
