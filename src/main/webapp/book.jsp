@@ -15,12 +15,12 @@
                 <tr>
                     <td><c:out value="${book.author}"/></td>
                     <td><c:out value="${book.name}"/></td>
-<%--                    <td>--%>
-<%--                        <form method ="post" action="delete">--%>
-<%--                            <input type="hidden" name="delete" value="${book.id}" />--%>
-<%--                            <button type="submit">X</button>--%>
+                    <td>
+<%--                        <form method ="post" action="book">--%>
+
+                            <button type="submit">X</button>
 <%--                        </form>--%>
-<%--                    </td>--%>
+                    </td>
                 </tr>
             </table>
 

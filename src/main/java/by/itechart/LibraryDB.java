@@ -2,7 +2,10 @@ package by.itechart;
 
 import lombok.SneakyThrows;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,8 +21,7 @@ public class LibraryDB {
         Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
         for (Book book : library) {
-            statement.executeUpdate("INSERT INTO library (author, name) VALUES (" + book.getAuthor() + ", " + book.getName() + ")");
-
+            statement.executeUpdate("INSERT INTO library (author, name) VALUES (\"" + book.getAuthor() + "\", \"" + book.getName() + "\")");
             LibraryFormation.library.clear();
             statement.close();
             connection.close();
@@ -31,6 +33,7 @@ public class LibraryDB {
         Class.forName(JDBC_DRIVER);
         Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
+
         ResultSet resultSet = statement.executeQuery("SELECT * FROM library");
         List<Book> list = new LinkedList();
         while (resultSet.next()) {
@@ -50,23 +53,12 @@ public class LibraryDB {
     }
 
     @SneakyThrows
-    public static List<Book> dataDelete(int id) {
+    public static void dataDelete(int id) {
         Class.forName(JDBC_DRIVER);
         Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
+
         statement.executeUpdate("DELETE FROM library WHERE id = " + id);
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM library");
-        List<Book> list = new LinkedList();
-        while (resultSet.next()) {
-            String author = resultSet.getString("author");
-            String name = resultSet.getString("name");
-            Book book = new Book();
-            book.setAuthor(author);
-            book.setName(name);
-            list.add(book);
-        }
-        resultSet.close();
-        statement.close();
-        return list;
+        dataRead();
     }
 }
