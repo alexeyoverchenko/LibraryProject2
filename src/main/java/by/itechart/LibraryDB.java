@@ -13,39 +13,58 @@ public class LibraryDB {
     static final String PASSWORD = "Maya666";
 
     @SneakyThrows
-    public static void dataWrite(List<Book> library){
+    public static void dataWrite(List<Book> library) {
         Class.forName(JDBC_DRIVER);
         Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
         for (Book book : library) {
-            int id = book.getId();
-            String author = book.getAuthor();
-            String name = book.getName();
-            statement.executeUpdate("INSERT INTO library VALUES (" + id + ", " + author + ", " + name + " )");
+            statement.executeUpdate("INSERT INTO library (author, name) VALUES (" + book.getAuthor() + ", " + book.getName() + ")");
+
+            LibraryFormation.library.clear();
+            statement.close();
+            connection.close();
         }
-        LibraryFormation.library.clear();
-        statement.close();
-        connection.close();
     }
 
     @SneakyThrows
-    public static List<Book> dataRead(){
+    public static List<Book> dataRead() {
         Class.forName(JDBC_DRIVER);
         Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM library");
         List<Book> list = new LinkedList();
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    String author = resultSet.getString("author");
-                    String name = resultSet.getString("name");
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String author = resultSet.getString("author");
+            String name = resultSet.getString("name");
 
-                    Book book = new Book();
-                    book.setId(id);
-                    book.setName(name);
-                    book.setAuthor(author);
-                    list.add(book);
-                }
+            Book book = new Book();
+            book.setId(id);
+            book.setAuthor(author);
+            book.setName(name);
+            list.add(book);
+        }
+        resultSet.close();
+        statement.close();
+        return list;
+    }
+
+    @SneakyThrows
+    public static List<Book> dataDelete(int id) {
+        Class.forName(JDBC_DRIVER);
+        Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM library WHERE id = " + id);
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM library");
+        List<Book> list = new LinkedList();
+        while (resultSet.next()) {
+            String author = resultSet.getString("author");
+            String name = resultSet.getString("name");
+            Book book = new Book();
+            book.setAuthor(author);
+            book.setName(name);
+            list.add(book);
+        }
         resultSet.close();
         statement.close();
         return list;

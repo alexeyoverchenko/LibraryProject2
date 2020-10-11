@@ -32,12 +32,4 @@ public class Book {
         this.author = author;
     }
 
-    @Override
-    public String toString() {
-        return "Bot{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", serial=" + author +
-                '}';
-    }
 }

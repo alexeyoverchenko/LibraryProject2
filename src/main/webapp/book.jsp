@@ -9,13 +9,25 @@
     <h3>Library</h3>
 
     <c:forEach var="book" items="${library}">
-        <div><c:out value="${book.author} | ${book.name}"/></div>
-        </c:forEach>
+
+        <div>
+            <table border="1" width="20%" cellpadding="3">
+                <tr>
+                    <td><c:out value="${book.author}"/></td>
+                    <td><c:out value="${book.name}"/></td>
+<%--                    <td>--%>
+<%--                        <form method ="post" action="delete">--%>
+<%--                            <input type="hidden" name="delete" value="${book.id}" />--%>
+<%--                            <button type="submit">X</button>--%>
+<%--                        </form>--%>
+<%--                    </td>--%>
+                </tr>
+            </table>
+
+        </div>
+    </c:forEach>
 
     <form method="post" action="book">
-        <dl>
-            <dd><input type="number" name="id" placeholder="id" /></dd>
-        </dl>
         <dl>
             <dd><input type="text" name="author" placeholder="автор" /></dd>
         </dl>
