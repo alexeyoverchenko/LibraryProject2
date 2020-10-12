@@ -13,6 +13,7 @@ public class Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         request.setAttribute("library", LibraryDB.dataRead());
+
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 
@@ -20,12 +21,17 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         request.setCharacterEncoding("UTF-8");
-// TODO: 12.10.2020 если кнопка delete нажата - вызываем метод LibraryDB.dataDelete()
-        LibraryFormation.saveNewBook(request.getParameter("author"),request.getParameter("name"));
-        request.setAttribute("library", LibraryDB.dataRead());
+        String action = request.getParameter("action");
 
+        if ("delete".equals(action)) {
+            LibraryDB.dataDelete(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("library", LibraryDB.dataRead());
+        }
+
+        if ("save".equals(action)) {
+            LibraryFormation.saveNewBook(request.getParameter("author"),request.getParameter("name"));
+            request.setAttribute("library", LibraryDB.dataRead());
+        }
         request.getRequestDispatcher("/book.jsp").forward(request, response);
-
     }
-
 }

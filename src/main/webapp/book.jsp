@@ -16,10 +16,11 @@
                     <td><c:out value="${book.author}"/></td>
                     <td><c:out value="${book.name}"/></td>
                     <td>
-<%--                        <form method ="post" action="book">--%>
-
+                        <form method ="post">
+                            <input type="hidden" name="id" value="${book.id}" />
+                            <input type="hidden" name="action" value="delete" />
                             <button type="submit">X</button>
-<%--                        </form>--%>
+                        </form>
                     </td>
                 </tr>
             </table>
@@ -27,13 +28,14 @@
         </div>
     </c:forEach>
 
-    <form method="post" action="book">
+    <form method="post">
         <dl>
             <dd><input type="text" name="author" placeholder="автор" /></dd>
         </dl>
         <dl>
             <dd><input type="text" name="name" placeholder="название" /></dd>
         </dl>
+        <input type="hidden" name="action" value="save" />
         <button type="submit">Save</button>
     </form>
 
