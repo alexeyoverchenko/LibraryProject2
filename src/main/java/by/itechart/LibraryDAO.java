@@ -59,6 +59,5 @@ public class LibraryDAO {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate("DELETE FROM library WHERE id = " + id);
-        dataRead();
     }
 }

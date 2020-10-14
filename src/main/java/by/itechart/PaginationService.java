@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PaginationService {
-    private static List<Book> library = LibraryDAO.dataRead();
+    private static List<Book> library;
     private static List<Book> paginationList = new LinkedList<>();
     private static int pagesNumber;
-    private static int pagesLimit;
+    private static int pagesLimit = 5;
 
     public static void setPagesLimit(int pagesLimit) {
         PaginationService.pagesLimit = pagesLimit;
@@ -15,6 +15,11 @@ public class PaginationService {
     public static List<Book> getLibrary() {
         return library;
     }
+
+    public static void setLibrary(List<Book> library) {
+        PaginationService.library = library;
+    }
+
     public static List<Book> getPaginationList() {
         return paginationList;
     }
@@ -24,6 +29,7 @@ public class PaginationService {
     }
 
     public static void pagesCount() {
+        setLibrary(LibraryDAO.dataRead());
         double pages = (double) getLibrary().size() / pagesLimit;
         if (pages >= 0 & pages <= 1) {
             pagesNumber = 1;
@@ -35,10 +41,16 @@ public class PaginationService {
     }
 
     public static void dataProcess(int action_button) {
-        PaginationService.pagesCount();
+        setLibrary(LibraryDAO.dataRead());
         getPaginationList().clear();
         for (int i = (action_button * pagesLimit) - pagesLimit; i < (action_button * pagesLimit); i++) {
-            paginationList.add(library.get(i));
+            try {
+                if (library.get(i) != null) {
+                    paginationList.add(library.get(i));
+                }
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                break;
+            }
         }
     }
 }

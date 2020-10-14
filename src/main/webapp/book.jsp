@@ -31,15 +31,23 @@
 
 
     <form method ="post">
-        <input type="hidden" name="page" value="${1}" />
-        <input type="hidden" name="action_button" value="first" />
-        <button type="submit">1</button>
+        <input type="number" name="lines_number" placeholder="set number of lines" />
+        <input type="hidden" name="action" value="set" />
+        <button type="submit">Set</button>
     </form>
-    <form method ="post">
-        <input type="hidden" name="page" value="${2}" />
-        <input type="hidden" name="action_button" value="second" />
-        <button type="submit">2</button>
-    </form>
+
+    <div>
+        <form method ="post">
+            <input type="hidden" name="page" value="${1}" />
+            <input type="hidden" name="action_button" value="first" />
+            <button type="submit">1</button>
+        </form>
+        <form method ="post">
+            <input type="hidden" name="page" value="${2}" />
+            <input type="hidden" name="action_button" value="second" />
+            <button type="submit">2</button>
+        </form>
+    </div>
 
     <div id="wrapper">
         <form method="post">
@@ -50,6 +58,7 @@
                 <dl>
                     <dd><input type="text" name="name" placeholder="name" /></dd>
                 </dl>
+<%--there was save button--%>
                 <form method="post">
                     <input type="hidden" name="action" value="save" />
                     <button type="submit">Save</button>
