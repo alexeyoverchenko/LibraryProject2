@@ -11,7 +11,7 @@ public class LibraryFormation {
         book.setAuthor(author);
         book.setName(name);
         library.add(book);
-        LibraryDB.dataWrite(library);
+        LibraryDAO.dataWrite(library);
 
     }
 }

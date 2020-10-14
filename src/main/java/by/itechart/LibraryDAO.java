@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LibraryDB {
+public class LibraryDAO {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DATABASE_URL = "jdbc:mysql://localhost/mydb";
     static final String USER = "alex";

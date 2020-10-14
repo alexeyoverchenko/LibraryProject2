@@ -7,13 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Servlet extends HttpServlet {
-
+static boolean isFirstResponse = true;
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
-        request.setAttribute("library", LibraryDB.dataRead());
-
+        PaginationService.setPagesLimit(4);
+        if (isFirstResponse) {
+            isFirstResponse = false;
+            PaginationService.dataProcess(1);
+        }
+        request.setAttribute("pageNumber", PaginationService.getPagesNumber());
+        request.setAttribute("library", PaginationService.getPaginationList());
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 
@@ -22,16 +26,28 @@ public class Servlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+        String action_button = request.getParameter("action_button");
 
-        if ("delete".equals(action)) {
-            LibraryDB.dataDelete(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("library", LibraryDB.dataRead());
+        if ("first".equals(action_button)) {
+            PaginationService.dataProcess(Integer.parseInt(request.getParameter("page")));
+        } else if ("second".equals(action_button)) {
+            PaginationService.dataProcess(Integer.parseInt(request.getParameter("page")));
+        }
+
+        if ("delete".equals(action_button)) {
+            LibraryDAO.dataDelete(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("library", LibraryDAO.dataRead());
         }
 
         if ("save".equals(action)) {
             LibraryFormation.saveNewBook(request.getParameter("author"),request.getParameter("name"));
-            request.setAttribute("library", LibraryDB.dataRead());
+            request.setAttribute("library", LibraryDAO.dataRead());
         }
+
+        request.setAttribute("pageNumber", PaginationService.getPagesNumber());
+        request.setAttribute("library", PaginationService.getPaginationList());
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
+
+
 }

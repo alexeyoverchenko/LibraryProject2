@@ -1,15 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<link rel="stylesheet" href="book.css" type="text/css" media="screen"/>
 <html>
 <head>
     <title>Library</title>
 </head>
 <body>
 <section>
-    <h3>Library</h3>
+    <h3 id="h3">Library</h3>
+
 
     <c:forEach var="book" items="${library}">
-
         <div>
             <table border="1" width="20%" cellpadding="3">
                 <tr>
@@ -24,21 +26,58 @@
                     </td>
                 </tr>
             </table>
-
         </div>
     </c:forEach>
 
-    <form method="post">
-        <dl>
-            <dd><input type="text" name="author" placeholder="автор" /></dd>
-        </dl>
-        <dl>
-            <dd><input type="text" name="name" placeholder="название" /></dd>
-        </dl>
-        <input type="hidden" name="action" value="save" />
-        <button type="submit">Save</button>
+
+    <form method ="post">
+        <input type="hidden" name="page" value="${1}" />
+        <input type="hidden" name="action_button" value="first" />
+        <button type="submit">1</button>
+    </form>
+    <form method ="post">
+        <input type="hidden" name="page" value="${2}" />
+        <input type="hidden" name="action_button" value="second" />
+        <button type="submit">2</button>
     </form>
 
+    <div id="wrapper">
+        <form method="post">
+            <div id="field">
+                <dl>
+                    <dd><input type="text" name="author" placeholder="author" /></dd>
+                </dl>
+                <dl>
+                    <dd><input type="text" name="name" placeholder="name" /></dd>
+                </dl>
+                <form method="post">
+                    <input type="hidden" name="action" value="save" />
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </form>
+    </div>
+
+    <button id="add_button">Add</button>
+    <script>
+        let wrapper = document.querySelector('#wrapper')
+        let element = document.createElement('div');
+        const buttonElement = document.getElementById('add_button');
+        buttonElement.addEventListener('click', function () {
+            element.innerHTML =
+                '<p>' +
+                '<div id="field">\n' +
+                '                <dl>\n' +
+                '                    <dd><input type="text" name="author" placeholder="author" /></dd>\n' +
+                '                </dl>\n' +
+                '                <dl>\n' +
+                '                    <dd><input type="text" name="name" placeholder="name" /></dd>\n' +
+                '                </dl>\n' +
+                '            </form>\n' +
+                '    </p>'
+            wrapper.appendChild(element)
+        });
+    </script>
 </section>
 </body>
 </html>
