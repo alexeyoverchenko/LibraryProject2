@@ -11,7 +11,8 @@ import java.util.List;
 
 public class LibraryDAO {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DATABASE_URL = "jdbc:mysql://localhost/mydb";
+//    static final String DATABASE_URL = "jdbc:mysql://localhost/mydb";
+    static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false";
     static final String USER = "alex";
     static final String PASSWORD = "Maya666";
 
@@ -57,7 +58,15 @@ public class LibraryDAO {
         Class.forName(JDBC_DRIVER);
         Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
-
         statement.executeUpdate("DELETE FROM library WHERE id = " + id);
+    }
+
+    @SneakyThrows
+    public static void dataRedact(int id, String author_new, String name_new) {
+        Class.forName(JDBC_DRIVER);
+        Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("UPDATE library SET author = " + author_new + " WHERE id = " + id);
+        statement.executeUpdate("UPDATE library SET name = " + name_new + " WHERE id = " + id);
     }
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Servlet extends HttpServlet {
 static boolean isFirstResponse = true;
+static int editID = 0;
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -48,6 +49,16 @@ static boolean isFirstResponse = true;
         if ("save".equals(action)) {
             LibraryFormation.saveNewBook(request.getParameter("author"),request.getParameter("name"));
             PaginationService.pagesCount();
+        }
+
+        if ("edit".equals(action)) {
+            editID = Integer.parseInt(request.getParameter("id"));
+            request.getRequestDispatcher("/edit.jsp").forward(request, response);
+        }
+        if ("update".equals(action)) {
+            String author = request.getParameter("author_new");
+            String name = request.getParameter("name_new");
+            LibraryDAO.dataRedact(editID, author, name);
         }
 
         PaginationService.dataProcess(fieldStatus);

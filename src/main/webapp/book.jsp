@@ -20,6 +20,13 @@
                     <td>
                         <form method ="post">
                             <input type="hidden" name="id" value="${book.id}" />
+                            <input type="hidden" name="action" value="edit" />
+                            <button type="submit">/</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method ="post">
+                            <input type="hidden" name="id" value="${book.id}" />
                             <input type="hidden" name="action" value="delete" />
                             <button type="submit">X</button>
                         </form>
@@ -28,6 +35,13 @@
             </table>
         </div>
     </c:forEach>
+
+    <div id="redact_wrapper">
+        <form method="post">
+            <div id="redact_field">
+            </div>
+        </form>
+    </div>
 
 
     <form method ="post">
@@ -58,7 +72,7 @@
                 <dl>
                     <dd><input type="text" name="name" placeholder="name" /></dd>
                 </dl>
-<%--there was save button--%>
+                <%--there was save button--%>
                 <form method="post">
                     <input type="hidden" name="action" value="save" />
                     <button type="submit">Save</button>
