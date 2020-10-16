@@ -12,10 +12,12 @@ public class PaginationService {
     public static void setPagesLimit(int pagesLimit) {
         PaginationService.pagesLimit = pagesLimit;
     }
+    public static int getPagesLimit() {
+        return pagesLimit;
+    }
     public static List<Book> getLibrary() {
         return library;
     }
-
     public static void setLibrary(List<Book> library) {
         PaginationService.library = library;
     }
@@ -33,7 +35,7 @@ public class PaginationService {
         double pages = (double) getLibrary().size() / pagesLimit;
         if (pages >= 0 & pages <= 1) {
             pagesNumber = 1;
-        } else if (pages % 10 == 0) {
+        } else if ((pages*10) % 10 == 0) {
             pagesNumber = (int) pages;
         } else {
             pagesNumber = (int) pages + 1;

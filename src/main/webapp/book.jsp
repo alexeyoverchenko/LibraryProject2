@@ -10,7 +10,6 @@
 <section>
     <h3 id="h3">Library</h3>
 
-
     <c:forEach var="book" items="${library}">
         <div>
             <table border="1" width="20%" cellpadding="3">
@@ -43,62 +42,63 @@
         </form>
     </div>
 
-
+    <p>number of pages: <c:out value="${pageNumber}"/> </p>
+    <p>line limit: <c:out value="${pageLimit}"/> </p>
     <form method ="post">
-        <input type="number" name="lines_number" placeholder="set number of lines" />
+        <input type="number" name="lines_number" placeholder="enter your line limit" />
         <input type="hidden" name="action" value="set" />
         <button type="submit">Set</button>
     </form>
 
     <div>
         <form method ="post">
-            <input type="hidden" name="page" value="${1}" />
-            <input type="hidden" name="action_button" value="first" />
-            <button type="submit">1</button>
+            <input type="hidden" name="action_button" value="back" />
+            <button id="back_button">Back</button>
         </form>
         <form method ="post">
-            <input type="hidden" name="page" value="${2}" />
+            <input type="hidden" name="page" value="${1 + slider}" />
+            <input type="hidden" name="action_button" value="first" />
+            <button type="submit">${1 + slider}</button>
+        </form>
+        <form method ="post">
+            <input type="hidden" name="page" value="${2 + slider}" />
             <input type="hidden" name="action_button" value="second" />
-            <button type="submit">2</button>
+            <button type="submit">${2 + slider}</button>
+        </form>
+        <form method ="post">
+            <input type="hidden" name="page" value="${3 + slider}" />
+            <input type="hidden" name="action_button" value="third" />
+            <button type="submit">${3 + slider}</button>
+        </form>
+        <form method ="post">
+            <input type="hidden" name="action_button" value="next" />
+            <button id="next_button">Next</button>
         </form>
     </div>
 
-    <div id="wrapper">
-        <form method="post">
+    <form method="post">
+        <div id="wrapper">
             <div id="field">
-                <dl>
-                    <dd><input type="text" name="author" placeholder="author" /></dd>
-                </dl>
-                <dl>
-                    <dd><input type="text" name="name" placeholder="name" /></dd>
-                </dl>
-                <%--there was save button--%>
-                <form method="post">
-                    <input type="hidden" name="action" value="save" />
-                    <button type="submit">Save</button>
-                </form>
+                <input type="text" name="author" placeholder="author" />
+                <input type="text" name="name" placeholder="name" />
             </div>
-        </form>
-    </div>
+        </div>
+        <input type="hidden" name="action" value="save" />
+        <button type="submit">Save</button>
+    </form>
 
     <button id="add_button">Add</button>
     <script>
-        let wrapper = document.querySelector('#wrapper')
-        let element = document.createElement('div');
-        const buttonElement = document.getElementById('add_button');
+        let buttonElement = document.getElementById('add_button');
         buttonElement.addEventListener('click', function () {
+            let wrapper = document.querySelector('#wrapper');
+            let element = document.createElement('div');
             element.innerHTML =
                 '<p>' +
-                '<div id="field">\n' +
-                '                <dl>\n' +
-                '                    <dd><input type="text" name="author" placeholder="author" /></dd>\n' +
-                '                </dl>\n' +
-                '                <dl>\n' +
-                '                    <dd><input type="text" name="name" placeholder="name" /></dd>\n' +
-                '                </dl>\n' +
-                '            </form>\n' +
-                '    </p>'
-            wrapper.appendChild(element)
+                '<input type="text" name="author" placeholder="author" />\n' +
+                '<input type="text" name="name" placeholder="name" />\n' +
+                '</p>'
+            wrapper.appendChild(element);
         });
     </script>
 </section>
