@@ -10,7 +10,8 @@
 <section>
     <h3 id="h3">Edit</h3>
 
-    <form method="post">
+    <form method="post" >
+<%--        action="/book"--%>
         <div id="field">
             <dl>
                 <dd><input type="text" name="author_new" placeholder="author" /></dd>
@@ -19,7 +20,7 @@
                 <dd><input type="text" name="name_new" placeholder="name" /></dd>
             </dl>
             <form method="post">
-                <input type="hidden" name="action" value="update" />
+                <input type="hidden" name="action_update" value="update" />
                 <button type="submit">Update</button>
             </form>
         </div>

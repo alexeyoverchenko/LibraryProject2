@@ -2,30 +2,32 @@ package by.itechart;
 
 import lombok.SneakyThrows;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Servlet extends HttpServlet {
 static boolean isFirstResponse = true;
-static int editID = 0;
 static int slider = 0;
 static int fieldStatus = 1;
+static int updateId;
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
         if (isFirstResponse) {
             isFirstResponse = false;
             PaginationService.dataProcess(1);
         }
 
-        PaginationService.pagesCount();
-//        PaginationService.dataProcess(1); // maybe
-        request.setAttribute("pageNumber", PaginationService.getPagesNumber());
-        request.setAttribute("pageLimit", PaginationService.getPagesLimit());
-        request.setAttribute("library", PaginationService.getPaginationList());
-        request.getRequestDispatcher("/book.jsp").forward(request, response);
+            PaginationService.dataProcess(fieldStatus);
+            PaginationService.pagesCount();
+            request.setAttribute("pageNumber", PaginationService.getPagesNumber());
+            request.setAttribute("pageLimit", PaginationService.getPagesLimit());
+            request.setAttribute("library", PaginationService.getPaginationList());
+            request.getRequestDispatcher("/book.jsp").forward(request, response);
+
     }
 
     @SneakyThrows
@@ -68,18 +70,15 @@ static int fieldStatus = 1;
         }
 
         if ("save".equals(action)) {
+            request.getParameterMap();
+
             LibraryFormation.saveNewBook(request.getParameter("author"),request.getParameter("name"));
             PaginationService.pagesCount();
         }
 
         if ("edit".equals(action)) {
-            editID = Integer.parseInt(request.getParameter("id"));
-            request.getRequestDispatcher("/edit.jsp").forward(request, response);
-        }
-        if ("update".equals(action)) {
-            String author = request.getParameter("author_new");
-            String name = request.getParameter("name_new");
-            LibraryDAO.dataRedact(editID, author, name);
+            updateId = Integer.parseInt(request.getParameter("id"));
+            request.getRequestDispatcher("/editForward.jsp").forward(request, response);
         }
 
         PaginationService.dataProcess(fieldStatus);
@@ -87,6 +86,7 @@ static int fieldStatus = 1;
         request.setAttribute("pageNumber", PaginationService.getPagesNumber());
         request.setAttribute("pageLimit", PaginationService.getPagesLimit());
         request.setAttribute("library", PaginationService.getPaginationList());
+
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 

@@ -1,7 +1,6 @@
 package by.itechart;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class LibraryFormation {
     public static List<Book> library = new LinkedList<>();
@@ -14,4 +13,6 @@ public class LibraryFormation {
         LibraryDAO.dataWrite(library);
 
     }
+
+
 }

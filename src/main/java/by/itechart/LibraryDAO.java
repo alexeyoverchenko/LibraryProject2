@@ -11,8 +11,8 @@ import java.util.List;
 
 public class LibraryDAO {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-//    static final String DATABASE_URL = "jdbc:mysql://localhost/mydb";
-    static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false";
+    static final String DATABASE_URL = "jdbc:mysql://localhost/mydb";
+//    static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false";
     static final String USER = "alex";
     static final String PASSWORD = "Maya666";
 
