@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>Library</title>
-    <%--    <meta http-equiv="refresh" content="0; url=http://localhost:8080/edit">--%>
 </head>
 <body>
 <section>
@@ -76,8 +75,12 @@
     <form method="post">
         <div id="wrapper">
             <div id="field">
-                <input type="text" name="author" placeholder="author" />
-                <input type="text" name="name" placeholder="name" />
+                <dl>
+                    <input type="text" name="author" placeholder="author" />
+                </dl>
+                <dl>
+                    <input type="text" name="name" placeholder="name" />
+                </dl>
             </div>
         </div>
         <input type="hidden" name="action" value="save" />
@@ -90,17 +93,16 @@
         buttonElement.addEventListener('click', function () {
             let wrapper = document.querySelector('#wrapper');
             let element = document.createElement('div');
-            // element.innerHTML =
-            //     '<p>' +
-            //     '<input type="text" name="author" placeholder="author" />\n' +
-            //     '<input type="text" name="name" placeholder="name" />\n' +
-            //     '</p>'
-
             element.innerHTML =
                 '<p>' +
-                '<input type="text" name="UniqueAuthor${status.index}" placeholder="author" />\n' +
-                '<input type="text" name="UniqueName${status.index}" placeholder="name">\n' +
+                '<dl>' +
+                '<input type="text" name="author" placeholder="author" />\n' +
+                '</dl>' +
+                '<dl>' +
+                '<input type="text" name="name" placeholder="name" />\n' +
+                '</dl>' +
                 '</p>'
+
             wrapper.appendChild(element);
         });
     </script>

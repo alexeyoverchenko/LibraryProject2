@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 public class Servlet extends HttpServlet {
     static boolean isFirstResponse = true;
@@ -66,9 +67,13 @@ public class Servlet extends HttpServlet {
         }
 
         if ("save".equals(action)) {
-            request.getParameterMap();
-
-            LibraryFormation.saveNewBook(request.getParameter("author"),request.getParameter("name"));
+            List list = new ArrayList();
+            Map<String, String[]> map = request.getParameterMap();
+            for (Map.Entry<String, String[]> entry : map.entrySet()) {
+                String[] allItems = entry.getValue();
+                list.addAll(Arrays.asList(allItems));
+            }
+            LibraryFormation.saveNewBook(list);
             PaginationService.pagesCount();
         }
 

@@ -11,7 +11,6 @@
     <h3 id="h3">Edit</h3>
 
     <form method="post" >
-<%--        action="/book"--%>
         <div id="field">
             <dl>
                 <dd><input type="text" name="author_new" placeholder="author" /></dd>

@@ -7,7 +7,7 @@ public class PaginationService {
     private static List<Book> library;
     private static List<Book> paginationList = new LinkedList<>();
     private static int pagesNumber;
-    private static int pagesLimit = 5;
+    private static int pagesLimit = 3;
 
     public static void setPagesLimit(int pagesLimit) {
         PaginationService.pagesLimit = pagesLimit;
