@@ -1,7 +1,5 @@
 package by.itechart;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,27 +7,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditServlet extends HttpServlet {
+static int updateId;
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        request.getRequestDispatcher("/edit.jsp").forward(request, response);
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        updateId = Integer.parseInt(req.getParameter("id"));
+        if (updateId != 0) {
+            req.getRequestDispatcher("/edit.jsp").forward(req, resp);
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action_update");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
 
         if ("update".equals(action)) {
-//            int id = Integer.parseInt(request.getParameter("id"));
-            String author = request.getParameter("author_new");
-            String name = request.getParameter("name_new");
-            LibraryDAO.dataRedact(Servlet.updateId, author, name);
-
-            request.getRequestDispatcher("/bookForward.jsp").forward(request, response);
+            String author = req.getParameter("author_new");
+            String name = req.getParameter("name_new");
+            LibraryDAO.dataRedact(updateId, author, name);
+            req.getRequestDispatcher("/forwardToBook.jsp").forward(req, resp);
         }
-
-        request.getRequestDispatcher("/edit.jsp").forward(request, response);
-
     }
 }

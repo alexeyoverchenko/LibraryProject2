@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Library</title>
+    <%--    <meta http-equiv="refresh" content="0; url=http://localhost:8080/edit">--%>
 </head>
 <body>
 <section>
@@ -17,13 +18,7 @@
                     <td><c:out value="${book.author}"/></td>
                     <td><c:out value="${book.name}"/></td>
                     <td>
-                        <form method ="post" >
-<%--                            action="/edit"--%>
-                            <input type="hidden" name="id" value="${book.id}" />
-                            <input type="hidden" name="action" value="edit" />
-                            <button type="submit">/</button>
-<%--                            <button onclick="location.href='http://localhost:8080/edit'" type="button">/</button>--%>
-                        </form>
+                        <button onclick="location.href='http://localhost:8080/edit?id=${book.id}'" type="button">/</button>
                     </td>
                     <td>
                         <form method ="post">
@@ -102,10 +97,10 @@
             //     '</p>'
 
             element.innerHTML =
-            '<p>' +
-            '<input type="text" name="UniqueAuthor${status.index}" placeholder="author" />\n' +
-            '<input type="text" name="UniqueName${status.index}" placeholder="name">\n' +
-            '</p>'
+                '<p>' +
+                '<input type="text" name="UniqueAuthor${status.index}" placeholder="author" />\n' +
+                '<input type="text" name="UniqueName${status.index}" placeholder="name">\n' +
+                '</p>'
             wrapper.appendChild(element);
         });
     </script>

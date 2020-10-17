@@ -20,7 +20,7 @@
                 <dd><input type="text" name="name_new" placeholder="name" /></dd>
             </dl>
             <form method="post">
-                <input type="hidden" name="action_update" value="update" />
+                <input type="hidden" name="action" value="update" />
                 <button type="submit">Update</button>
             </form>
         </div>

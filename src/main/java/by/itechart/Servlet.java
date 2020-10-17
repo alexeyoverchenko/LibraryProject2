@@ -1,18 +1,15 @@
 package by.itechart;
 
 import lombok.SneakyThrows;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Servlet extends HttpServlet {
-static boolean isFirstResponse = true;
-static int slider = 0;
-static int fieldStatus = 1;
-static int updateId;
+    static boolean isFirstResponse = true;
+    static int slider = 0;
+    static int fieldStatus = 1;
+
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -21,13 +18,12 @@ static int updateId;
             PaginationService.dataProcess(1);
         }
 
-            PaginationService.dataProcess(fieldStatus);
-            PaginationService.pagesCount();
-            request.setAttribute("pageNumber", PaginationService.getPagesNumber());
-            request.setAttribute("pageLimit", PaginationService.getPagesLimit());
-            request.setAttribute("library", PaginationService.getPaginationList());
-            request.getRequestDispatcher("/book.jsp").forward(request, response);
-
+        PaginationService.dataProcess(fieldStatus);
+        PaginationService.pagesCount();
+        request.setAttribute("pageNumber", PaginationService.getPagesNumber());
+        request.setAttribute("pageLimit", PaginationService.getPagesLimit());
+        request.setAttribute("library", PaginationService.getPaginationList());
+        request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 
     @SneakyThrows
@@ -76,11 +72,6 @@ static int updateId;
             PaginationService.pagesCount();
         }
 
-        if ("edit".equals(action)) {
-            updateId = Integer.parseInt(request.getParameter("id"));
-            request.getRequestDispatcher("/editForward.jsp").forward(request, response);
-        }
-
         PaginationService.dataProcess(fieldStatus);
         PaginationService.pagesCount();
         request.setAttribute("pageNumber", PaginationService.getPagesNumber());
@@ -89,6 +80,4 @@ static int updateId;
 
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
-
-
 }
