@@ -49,22 +49,22 @@
     <div>
         <form method ="post">
             <input type="hidden" name="action_button" value="back" />
-            <button class="ButtonLine" id="back_button">Back</button>
+            <button id="back_button">Back</button>
         </form>
         <form method ="post">
             <input type="hidden" name="page" value="${1 + slider}" />
             <input type="hidden" name="action_button" value="first" />
-            <button class="ButtonLine" type="submit">${1 + slider}</button>
+            <button type="submit">${1 + slider}</button>
         </form>
         <form method ="post">
             <input type="hidden" name="page" value="${2 + slider}" />
             <input type="hidden" name="action_button" value="second" />
-            <button class="ButtonLine" type="submit">${2 + slider}</button>
+            <button type="submit">${2 + slider}</button>
         </form>
         <form method ="post">
             <input type="hidden" name="page" value="${3 + slider}" />
             <input type="hidden" name="action_button" value="third" />
-            <button class="ButtonLine" type="submit">${3 + slider}</button>
+            <button type="submit">${3 + slider}</button>
         </form>
         <form method ="post">
             <input type="hidden" name="action_button" value="next" />
