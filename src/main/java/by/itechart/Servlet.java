@@ -63,7 +63,6 @@ public class Servlet extends HttpServlet {
         if ("delete".equals(action)) {
             int deleteId = Integer.parseInt(request.getParameter("id"));
             LibraryDAO.dataDelete(deleteId);
-            PaginationService.pagesCount();
         }
 
         if ("save".equals(action)) {
@@ -74,7 +73,6 @@ public class Servlet extends HttpServlet {
                 list.addAll(Arrays.asList(allItems));
             }
             LibraryFormation.saveNewBook(list);
-            PaginationService.pagesCount();
         }
 
         PaginationService.dataProcess(fieldStatus);
@@ -82,7 +80,6 @@ public class Servlet extends HttpServlet {
         request.setAttribute("pageNumber", PaginationService.getPagesNumber());
         request.setAttribute("pageLimit", PaginationService.getPagesLimit());
         request.setAttribute("library", PaginationService.getPaginationList());
-
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
 }
